@@ -1,26 +1,42 @@
-# Escala de Trabalho e Folga — HortiFruti Jardim Celeste
+# Escala de Trabalho e Folga — Hortifruti Jardim Celeste
 
-Projeto inicial do aplicativo Android para apoiar escalas e registros de presença relacionados à rede Wi-Fi exclusiva `HJC-PONTO`.
+Aplicativo Android em desenvolvimento para testar a identificação da rede Wi-Fi exclusiva da empresa: `HJC-PONTO`.
 
-## Estado atual
+## Estado implementado
 
-- Rede planejada: `HJC-PONTO` (roteador TP-Link, banda 2,4 GHz).
-- Plataforma-alvo: Android.
-- Este repositório inicia a estrutura nativa Android.
-- Ainda não existe servidor, cadastro real de funcionários, sincronização ou registro trabalhista validado.
+- Projeto Android nativo em Kotlin.
+- Tela inicial HJC Ponto.
+- Verificação se o aparelho está conectado por Wi-Fi.
+- Solicitação da permissão de localização necessária para o Android revelar o SSID em versões compatíveis.
+- Comparação do nome da rede conectada com `HJC-PONTO`.
+- Mensagens para rede correta, outra rede ou SSID oculto.
+- GitHub Actions configurado para compilar o APK de depuração e disponibilizá-lo como artefato por 14 dias.
 
-## Como o registro deverá funcionar
+## Como gerar e baixar o APK pelo celular
 
-1. Um administrador cadastra e autoriza cada funcionário e aparelho.
-2. O funcionário entra no aplicativo e vincula seu aparelho à conta.
-3. O aplicativo observa a conectividade Wi-Fi com uma notificação persistente enquanto o monitoramento estiver ativo.
-4. O servidor valida eventos, horários, duplicidade e sequência antes de registrar uma ocorrência.
-5. Quedas curtas, troca de antena ou instabilidade não devem gerar saída automática definitiva; eventos ambíguos ficam pendentes de revisão.
+1. Abra a aba **Actions** deste repositório no GitHub.
+2. Abra a execução chamada **Build Android APK**.
+3. Aguarde o resultado ficar verde (sucesso).
+4. Na seção **Artifacts**, baixe `hjc-ponto-debug`.
+5. Extraia o ZIP no celular e instale `app-debug.apk`. O Android poderá pedir autorização para instalar aplicativos dessa origem.
 
-## Limitações importantes
+## Teste no aparelho
 
-Conectar ao Wi-Fi não prova, por si só, que a pessoa está trabalhando. Android limita a execução em segundo plano e o acesso ao nome da rede; por isso, a detecção precisa ser testada em aparelhos reais e pode exigir permissões adicionais. O aplicativo não deve ser tratado como único meio de controle de jornada sem validação jurídica, técnica e operacional.
+1. Conecte o celular à rede `HJC-PONTO`.
+2. Abra HJC Ponto.
+3. Toque em **Autorizar identificação do Wi-Fi** e conceda a permissão.
+4. Se necessário, ative a localização do Android.
+5. Toque em **Verificar conexão HJC-PONTO**.
 
-## Desenvolvimento
+## Ainda não implementado
 
-Abra a pasta do projeto no Android Studio e sincronize o Gradle. O primeiro marco é validar a instalação e o monitoramento de conectividade em primeiro plano. A integração com backend, autenticação, painel administrativo e regras de ponto será adicionada em etapas posteriores.
+- Login seguro do administrador e dos funcionários.
+- Banco de dados e sincronização com servidor.
+- Cadastro e autorização dos aparelhos.
+- Monitoramento contínuo em segundo plano.
+- Registro automático de entrada e saída, com tratamento de quedas e revisões.
+- Escalas, folgas, relatórios e trilha de auditoria.
+
+## Limitações e privacidade
+
+O teste atual identifica a rede apenas quando o usuário toca no botão. Ele ainda não registra jornada nem monitora continuamente. O SSID pode ser ocultado pelo Android conforme permissões e configurações do aparelho. A presença no Wi-Fi é um indício técnico, não prova isolada de trabalho; o sistema final deverá permitir revisão e correção dos registros e informar claramente os funcionários sobre os dados coletados.
